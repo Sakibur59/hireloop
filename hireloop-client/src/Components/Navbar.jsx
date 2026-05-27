@@ -3,9 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
+import { useSession, signOut } from "@/lib/auth-client";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session, isPending } = useSession();
+  // console.log("Session data in Navbar:", session, "Is pending:", isPending);
+  const user = session?.user;
+
+  const handleSignOut = async () => {
+    await signOut();
+
+  }
 
   const navLinks = [
     {
@@ -32,7 +41,9 @@ export default function Navbar() {
           </div>
 
           <div className="hidden leading-none sm:block">
-            <h1 className="text-lg font-bold text-white">Hire Loop</h1>
+            <h1 className="text-lg font-bold text-white">
+              Hire Loop
+            </h1>
           </div>
         </Link>
 
@@ -59,12 +70,20 @@ export default function Navbar() {
 
             {/* Auth Links */}
             <div className="flex items-center gap-4">
-              <Link
-                href="/auth/signin"
-                className="text-sm font-medium text-violet-400 transition hover:text-violet-300"
-              >
-                Sign In
-              </Link>
+              {
+                user ?
+                  <>
+                    Hi, {user.name}!
+                    <Button onClick={handleSignOut}
+                      variant="ghost">Sign Out</Button>
+                  </>
+                  :
+                  <Link
+                    href="/auth/signin"
+                    className="text-sm font-medium text-violet-400 transition hover:text-violet-300"
+                  >
+                    Sign In
+                  </Link>}
 
               <Button
                 as={Link}
@@ -141,7 +160,7 @@ export default function Navbar() {
             <div className="border-t border-white/10 pt-4">
               <div className="flex flex-col gap-3">
                 <Link
-                  href="/auth/signin"
+                  href="/login"
                   className="rounded-xl px-4 py-3 text-base font-medium text-violet-400 transition hover:bg-white/5"
                   onClick={() => setIsMenuOpen(false)}
                 >
