@@ -120,7 +120,7 @@ export default function SignupPage() {
 
                     {/* Role Selection */}
                     <div className="flex flex-col gap-4">
-                        <Label>Subscription plan</Label>
+                        <Label>What you want to do?</Label>
                         <RadioGroup defaultValue="seeker" name="role" onChange = {value => setRole(value)} orientation="horizontal">
                             <Radio value="seeker">
                                 <Radio.Control>
