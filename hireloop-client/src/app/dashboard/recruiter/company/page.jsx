@@ -13,7 +13,7 @@ import {
     Button,
     toast
 } from "@heroui/react";
-import { Xmark } from "@gravity-ui/icons"; // অথবা আপনার প্রজেক্টের যেকোনো ক্লোজ (X) আইকন
+import { Xmark } from "@gravity-ui/icons";
 
 export default function RegisterCompany() {
     const [errors, setErrors] = useState({});
@@ -23,7 +23,6 @@ export default function RegisterCompany() {
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());
 
-        // ভ্যালিডেশন চেক
         const newErrors = {};
         if (!data.companyName) newErrors.companyName = "Company name is required";
         if (!data.industry) newErrors.industry = "Industry is required";
@@ -41,7 +40,6 @@ export default function RegisterCompany() {
         console.log("Submitted Data:", data);
     };
 
-    // আপনার ইমেজ রেফারেন্স অনুযায়ী ডার্ক মোড থিম স্টাইলস
     const textInputClass = "w-full text-white bg-[#1c1c1e] border border-zinc-800 hover:bg-[#242426] focus:border-zinc-600 rounded-lg h-12 px-3 text-sm placeholder:text-zinc-600 outline-none transition-all";
     const textAreaClass = "w-full text-white bg-[#1c1c1e] border border-zinc-800 hover:bg-[#242426] focus:border-zinc-600 rounded-lg p-3 text-sm placeholder:text-zinc-600 outline-none transition-all";
     
@@ -51,10 +49,9 @@ export default function RegisterCompany() {
 
     return (
         <div className="min-h-screen bg-[#0d0d0e] flex items-center justify-center p-4">
-            {/* মডাল কন্টেইনার */}
+          
             <div className="w-full max-w-[640px] bg-[#121214] border border-zinc-900 rounded-xl shadow-2xl relative overflow-hidden">
-                
-                {/* হেডার এবং ক্লোজ বাটন */}
+             
                 <div className="p-6 pb-4 flex justify-between items-start">
                     <div>
                         <h1 className="text-xl font-semibold text-white tracking-tight">Register New Company</h1>
@@ -69,11 +66,9 @@ export default function RegisterCompany() {
 
                 <hr className="border-zinc-800/60" />
 
-                {/* মেইন ফর্ম */}
                 <Form onSubmit={handleSubmit} className="p-6 space-y-6" validationErrors={errors} validationBehavior="aria">
                     <Fieldset className="space-y-5 w-full">
-                        
-                        {/* রো ১: কোম্পানি নাম এবং ইন্ডাস্ট্রি */}
+                      
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <TextField name="companyName" isInvalid={!!errors.companyName} className="flex flex-col gap-1.5 w-full">
                                 <Label className="text-zinc-300 font-medium text-xs">Company Name</Label>
@@ -96,7 +91,6 @@ export default function RegisterCompany() {
                             </Select>
                         </div>
 
-                        {/* রো ২: ওয়েবসাইট URL এবং লোকেশন */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <TextField name="websiteUrl" isInvalid={!!errors.websiteUrl} className="flex flex-col gap-1.5 w-full">
                                 <Label className="text-zinc-300 font-medium text-xs">Website URL</Label>
@@ -114,7 +108,7 @@ export default function RegisterCompany() {
                             <TextField name="location" isInvalid={!!errors.location} className="flex flex-col gap-1.5 w-full">
                                 <Label className="text-zinc-300 font-medium text-xs">Location</Label>
                                 <div className="relative flex items-center">
-                                    {/* লোকেশন পিন আইকন এর মত প্লেসহোল্ডার স্পেসিং */}
+                                  
                                     <svg className="absolute left-3.5 text-zinc-500 w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -124,7 +118,6 @@ export default function RegisterCompany() {
                             </TextField>
                         </div>
 
-                        {/* রো ৩: এমপ্লয়ি কাউন্ট এবং লোগো আপলোড */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Select className="w-full" name="employeeCount" isInvalid={!!errors.employeeCount}>
                                 <Label className="text-zinc-300 font-medium text-xs mb-1.5 block">Employee Count Range</Label>
@@ -157,7 +150,7 @@ export default function RegisterCompany() {
                             </div>
                         </div>
 
-                        {/* রো ৪: ডেসক্রিপশন */}
+                        
                         <TextField name="description" className="flex flex-col gap-1.5 w-full">
                             <Label className="text-zinc-300 font-medium text-xs">Brief Description</Label>
                             <TextArea
@@ -168,7 +161,7 @@ export default function RegisterCompany() {
                         </TextField>
                     </Fieldset>
 
-                    {/* মডাল ফুটার একশন বাটনসমূহ */}
+                  
                     <div className="flex justify-end gap-3 pt-4 border-t border-zinc-800/60 w-full">
                         <Button
                             type="button"
