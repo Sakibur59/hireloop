@@ -55,6 +55,18 @@ async function run() {
             const result = await jobCollection.insertOne(job);
             res.send(result);
         })
+  // company related apis
+
+         app.post('/api/companies', async (req, res) => {
+            const company = req.body;
+            const newCompany = {
+                ...company,
+                createdAt: new Date()
+            }
+            const result = await companyCollection.insertOne(newCompany);
+            res.send(result);
+        })
+
 
 
         // Send a ping to confirm a successful connection
