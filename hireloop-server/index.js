@@ -72,6 +72,18 @@ async function run() {
       const result = await applicationsCollection.insertOne(newApplication);
       res.send(result);
     });
+    app.get("/api/applications", async (req, res) => {
+      const query = {};
+      if (req.query.applicantId) {
+        query.applicantId = req.query.applicantId;
+      }
+      if (req.query.jobId) {
+        query.jobId = req.query.jobId;
+      }
+      const cursor = applicationsCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
     // company related apis
 
     app.get("/api/my/companies", async (req, res) => {
