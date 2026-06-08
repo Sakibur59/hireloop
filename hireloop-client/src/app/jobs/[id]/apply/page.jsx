@@ -7,7 +7,7 @@ import { getApplicationsByApplicant } from '@/lib/api/applications';
 import Link from 'next/link';
 // Importing a few Gravity UI icons to make it look clean and consistent
 import { ShieldExclamation, CircleInfo, Rocket } from '@gravity-ui/icons';
-// import { getPlanById } from '@/lib/api/plans';
+import { getPlanById } from '@/lib/api/plans';
 
 const ApplyPage = async ({ params }) => {
     const { id } = await params;
