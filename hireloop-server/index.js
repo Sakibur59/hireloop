@@ -153,7 +153,7 @@ async function run() {
         // })
 
         // inefficient way to join/aggregate collection
-        app.get('/api/companies', async (req, res) => {
+        app.get('/api/companies', verifyToken,async (req, res) => {
             const cursor = companyCollection.find();
             const companies = await cursor.toArray();
 
