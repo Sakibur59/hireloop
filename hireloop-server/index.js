@@ -58,6 +58,30 @@ async function run() {
             }
         }
 
+        // must be used after verifyToken middleware
+        const verifySeeker = async (req, res, next) => {
+            if (req.user?.role !== 'seeker') {
+                return res.status(403).send({ message: 'forbidden access' })
+            }
+            next();
+        }
+
+        // must be used after verifyToken middleware
+        const verifyRecruiter = async (req, res, next) => {
+            if (req.user?.role !== 'recruiter') {
+                return res.status(403).send({ message: 'forbidden access' })
+            }
+            next();
+        }
+
+        // must be used after verifyToken middleware
+        const verifyAdmin = async (req, res, next) => {
+            if (req.user.role !== 'admin') {
+                return res.status(403).send({ message: 'forbidden access' })
+            }
+            next();
+        }
+
         app.get('/api/users', async (req, res) => {
 
             const cursor = usersCollection.find().skip(6);
