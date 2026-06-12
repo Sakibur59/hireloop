@@ -41,6 +41,23 @@ async function run() {
         const planCollection = database.collection('plans');
         const subscriptionCollection = database.collection('subscriptions');
 
+
+
+         // verification related
+        const verifyToken = async (req, res, next) => {
+
+            const authHeader = req.headers?.authorization;
+            if (!authHeader) {
+                return res.status(401).send({ message: 'unauthorized access' })
+            }
+
+            const token = authHeader.split(' ')[1]
+
+            if (!token) {
+                return res.status(401).send({ message: 'unauthorized access' })
+            }
+        }
+
         app.get('/api/users', async (req, res) => {
 
             const cursor = usersCollection.find().skip(6);
