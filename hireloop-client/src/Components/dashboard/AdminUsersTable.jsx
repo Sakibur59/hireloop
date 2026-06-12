@@ -255,7 +255,7 @@ export default function AdminUsersTable({ users }) {
                             <button
                                 disabled={isUpdating}
                                 onClick={confirmRoleChange}
-                                className="px-4 py-2 text-white bg-indigo-600 hover:bg-indigo-500 rounded-md transition-colors shadow-lg shadow-indigo-600/10 disabled:opacity-50 min-w-[76px] flex items-center justify-center"
+                                className="px-4 py-2 text-white bg-indigo-600 hover:bg-indigo-500 rounded-md transition-colors shadow-lg shadow-indigo-600/10 disabled:opacity-50 min-w-19 flex items-center justify-center"
                             >
                                 {isUpdating ? (
                                     <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
