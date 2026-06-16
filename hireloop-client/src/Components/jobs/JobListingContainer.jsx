@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
-import JobCard from "@/components/jobs/JobCard";
-import JobFilters from "@/components/jobs/JobFilters";
+import JobCard from "@/Components/jobs/JobCard";
+import JobFilters from "@/Components/jobs/JobFilters";
 import { useRouter } from "next/navigation";
 import { Pagination } from "@heroui/react";
 

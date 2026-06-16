@@ -1,4 +1,4 @@
-import JobListingContainer from "@/components/jobs/JobListingContainer";
+import JobListingContainer from "@/Components/jobs/JobListingContainer";
 import { getJobs } from "@/lib/api/jobs";
 
 export default async function Page({ searchParams }) {

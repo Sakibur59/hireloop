@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSession } from "@/lib/auth-client";
 import { Briefcase, Persons, Thunderbolt, CircleCheck } from '@gravity-ui/icons';
-import { DashboardStats } from '@/components/dashboard/DashboardStats';
+import { DashboardStats } from '@/Components/dashboard/DashboardStats';
 const RecruiterDashboardHomePage = () => {
 
     const { data: session, isPending } = useSession();
