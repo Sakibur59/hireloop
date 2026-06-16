@@ -38,7 +38,7 @@ const client = new MongoClient(uri, {
 //         await client.connect();
 
 client.connect(() => {
-    console.log('connecting to MOngo db');
+    console.log('connecting to Mongo db');
 }).catch(console.dir)
 
 const database = client.db("hireloop_db_user");
