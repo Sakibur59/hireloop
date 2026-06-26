@@ -2,6 +2,7 @@ import FeaturedCompanies from "@/Components/FeaturedCompanies";
 import HowItWorks from "@/Components/HowItWorks";
 import StatsSection from "@/Components/StatsSection";
 import Image from "next/image";
+import Testimonials from "../Components/Testimonials";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <StatsSection></StatsSection>
       <HowItWorks></HowItWorks>
       <FeaturedCompanies></FeaturedCompanies>
+      <Testimonials></Testimonials>
     </div>
   );
 }
