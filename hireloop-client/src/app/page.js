@@ -4,6 +4,7 @@ import StatsSection from "@/Components/StatsSection";
 import Image from "next/image";
 import Testimonials from "../Components/Testimonials";
 import JobCategories from "@/Components/JobCategories";
+import CTASection from "@/Components/CTASection";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <FeaturedCompanies></FeaturedCompanies>
       <Testimonials></Testimonials>
       <JobCategories></JobCategories>
+      <CTASection></CTASection>
     </div>
   );
 }
