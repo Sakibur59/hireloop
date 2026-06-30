@@ -15,9 +15,9 @@ export async function DashboardSidebar() {
         { icon: Magnifier, href: "/dashboard/recruiter/jobs", label: "Jobs" },
         { icon: Bell, href: "/dashboard/recruiter/jobs/new", label: "Post A Job" },
         { icon: Briefcase, href: "/dashboard/recruiter/company", label: "Company Profile" },
-        { icon: Envelope, href: "/messages", label: "Messages" },
-        { icon: Person, href: "/profile", label: "Profile" },
-        { icon: Gear, href: "/settings", label: "Settings" },
+        { icon: Envelope, href: "/dashboard/recruiter/messages", label: "Messages" },
+        { icon: Person, href: "/dashboard/recruiter/profile", label: "Profile" },
+        { icon: Gear, href: "/dashboard/recruiter/settings", label: "Settings" },
     ]
 
     const seekerNavLinks = [
