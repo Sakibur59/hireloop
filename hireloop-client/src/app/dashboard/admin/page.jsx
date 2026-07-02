@@ -1,6 +1,14 @@
 import React from "react";
-import { Card, Chip, Button, Divider } from "@heroui/react";
+import { Card, Chip, Button } from "@heroui/react";
 import Link from "next/link";
+import { 
+  House, 
+  Persons, 
+  HouseFill, 
+  Briefcase, 
+  CreditCard, 
+  Gear 
+} from "@gravity-ui/icons";
 
 const AdminDashboardHomePage = () => {
   const stats = {
@@ -77,6 +85,15 @@ const AdminDashboardHomePage = () => {
     },
   ];
 
+  const adminNavLinks = [
+    { icon: House, href: "/dashboard/admin", label: "Dashboard" },
+    { icon: Persons, href: "/dashboard/admin/users", label: "Users" },
+    { icon: HouseFill, href: "/dashboard/admin/companies", label: "Companies" },
+    { icon: Briefcase, href: "/dashboard/admin/jobs", label: "Jobs" },
+    { icon: CreditCard, href: "/dashboard/admin/payments", label: "Payments" },
+    { icon: Gear, href: "/dashboard/admin/settings", label: "Settings" },
+  ];
+
   return (
     <div className="min-h-screen bg-black">
       {/* Admin Header */}
@@ -114,6 +131,31 @@ const AdminDashboardHomePage = () => {
         </div>
       </div>
 
+      {/* Sidebar Navigation - Horizontal */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
+          {adminNavLinks.map((link) => {
+            const Icon = link.icon;
+            const isActive = link.href === "/dashboard/admin";
+            return (
+              <Link key={link.href} href={link.href}>
+                <Button
+                  variant="flat"
+                  className={
+                    isActive
+                      ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                      : "border border-white/10 text-white hover:bg-white/10"
+                  }
+                >
+                  <Icon className="w-4 h-4 mr-1" />
+                  {link.label}
+                </Button>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Grid */}
@@ -126,19 +168,7 @@ const AdminDashboardHomePage = () => {
                   Total Users
                 </span>
                 <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center border border-blue-500/30">
-                  <svg
-                    className="w-5 h-5 text-blue-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
+                  <Persons className="w-5 h-5 text-blue-400" />
                 </div>
               </div>
               <div className="text-3xl font-bold text-white">
@@ -161,19 +191,7 @@ const AdminDashboardHomePage = () => {
                   Total Companies
                 </span>
                 <div className="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center border border-purple-500/30">
-                  <svg
-                    className="w-5 h-5 text-purple-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
-                  </svg>
+                  <HouseFill className="w-5 h-5 text-purple-400" />
                 </div>
               </div>
               <div className="text-3xl font-bold text-white">
@@ -196,19 +214,7 @@ const AdminDashboardHomePage = () => {
                   Total Jobs
                 </span>
                 <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center border border-green-500/30">
-                  <svg
-                    className="w-5 h-5 text-green-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <Briefcase className="w-5 h-5 text-green-400" />
                 </div>
               </div>
               <div className="text-3xl font-bold text-white">
@@ -320,14 +326,16 @@ const AdminDashboardHomePage = () => {
                   </svg>
                 </div>
               </div>
-              <Button
-                size="sm"
-                color="primary"
-                variant="flat"
-                className="mt-4 w-full bg-blue-500/20 text-blue-400 border border-blue-500/30"
-              >
-                Review Now
-              </Button>
+              <Link href="/dashboard/admin/companies">
+                <Button
+                  size="sm"
+                  color="primary"
+                  variant="flat"
+                  className="mt-4 w-full bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                >
+                  Review Now
+                </Button>
+              </Link>
             </div>
           </Card>
 
@@ -370,9 +378,11 @@ const AdminDashboardHomePage = () => {
                 <h3 className="text-lg font-semibold text-white">
                   Recent Activity
                 </h3>
-                <Button variant="light" size="sm" className="text-blue-400">
-                  View All
-                </Button>
+                <Link href="/dashboard/admin/users">
+                  <Button variant="light" size="sm" className="text-blue-400">
+                    View All
+                  </Button>
+                </Link>
               </div>
               <div className="space-y-4">
                 {recentActivities.map((activity) => (
@@ -382,34 +392,10 @@ const AdminDashboardHomePage = () => {
                   >
                     <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center">
                       {activity.type === "user" && (
-                        <svg
-                          className="w-4 h-4 text-blue-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                          />
-                        </svg>
+                        <Persons className="w-4 h-4 text-blue-400" />
                       )}
                       {activity.type === "company" && (
-                        <svg
-                          className="w-4 h-4 text-purple-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                          />
-                        </svg>
+                        <HouseFill className="w-4 h-4 text-purple-400" />
                       )}
                       {activity.type === "application" && (
                         <svg
@@ -527,11 +513,10 @@ const AdminDashboardHomePage = () => {
                 Quick Actions
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Button
-                  className="bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20"
-                  startContent={
+                <Link href="/dashboard/admin/companies/add">
+                  <Button className="w-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20">
                     <svg
-                      className="w-4 h-4"
+                      className="w-4 h-4 mr-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -543,35 +528,19 @@ const AdminDashboardHomePage = () => {
                         d="M12 4v16m8-8H4"
                       />
                     </svg>
-                  }
-                >
-                  Add Company
-                </Button>
-                <Button
-                  className="bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20"
-                  startContent={
+                    Add Company
+                  </Button>
+                </Link>
+                <Link href="/dashboard/admin/jobs/create">
+                  <Button className="w-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20">
+                    <Briefcase className="w-4 h-4 mr-1" />
+                    Post Job
+                  </Button>
+                </Link>
+                <Link href="/dashboard/admin/companies">
+                  <Button className="w-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20">
                     <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                  }
-                >
-                  Post Job
-                </Button>
-                <Button
-                  className="bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20"
-                  startContent={
-                    <svg
-                      className="w-4 h-4"
+                      className="w-4 h-4 mr-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -583,36 +552,15 @@ const AdminDashboardHomePage = () => {
                         d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                       />
                     </svg>
-                  }
-                >
-                  Verify Company
-                </Button>
-                <Button
-                  className="bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20"
-                  startContent={
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                  }
-                >
-                  Settings
-                </Button>
+                    Verify Company
+                  </Button>
+                </Link>
+                <Link href="/dashboard/admin/settings">
+                  <Button className="w-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20">
+                    <Gear className="w-4 h-4 mr-1" />
+                    Settings
+                  </Button>
+                </Link>
               </div>
             </div>
           </Card>
