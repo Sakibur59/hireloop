@@ -26,7 +26,7 @@ export async function DashboardSidebar() {
         { icon: Bookmark, href: "/dashboard/seeker/saved-jobs", label: "Saved Jobs" },
         { icon: FileText, href: "/dashboard/seeker/applications", label: "Applications" },
         { icon: CreditCard, href: "/dashboard/seeker/billing", label: "Billing" },
-        { icon: Gear, href: "/settings", label: "Settings" },
+        { icon: Gear, href: "/dashboard/seeker/settings", label: "Settings" },
     ];
 
     const adminNavLinks = [
