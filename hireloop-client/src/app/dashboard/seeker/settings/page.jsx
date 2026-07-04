@@ -1,9 +1,42 @@
-import { Card, Chip, Button, Switch, Divider } from "@heroui/react";
+import { Card, Chip, Button, Switch } from "@heroui/react";
 import Link from "next/link";
 import { requireRole } from "@/lib/core/session";
 
 export default async function JobSeekerSettingsPage() {
   const user = await requireRole("seeker");
+
+  const navLinks = [
+    {
+      href: "/dashboard/seeker",
+      label: "Dashboard",
+      icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
+    },
+    {
+      href: "/dashboard/seeker/jobs",
+      label: "Jobs",
+      icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
+    },
+    {
+      href: "/dashboard/seeker/saved-jobs",
+      label: "Saved Jobs",
+      icon: "M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z",
+    },
+    {
+      href: "/dashboard/seeker/applications",
+      label: "Applications",
+      icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+    },
+    {
+      href: "/dashboard/seeker/billing",
+      label: "Billing",
+      icon: "M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z",
+    },
+    {
+      href: "/dashboard/seeker/settings",
+      label: "Settings",
+      icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-black">
@@ -39,162 +72,42 @@ export default async function JobSeekerSettingsPage() {
         </div>
       </div>
 
-      {/* Navigation Tabs */}
+      {/* Navigation Tabs - Equal width */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
-          <Link href="/dashboard/seeker">
-            <Button
-              variant="flat"
-              className="border border-white/10 text-white hover:bg-white/10"
-            >
-              <svg
-                className="w-4 h-4 mr-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        <div className="flex flex-wrap gap-1 border-b border-white/10 pb-4">
+          {navLinks.map((link) => {
+            const isActive = link.href === "/dashboard/seeker/settings";
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="flex-1 min-w-[100px]"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                />
-              </svg>
-              Dashboard
-            </Button>
-          </Link>
-          <Link href="/dashboard/seeker/jobs">
-            <Button
-              variant="flat"
-              className="border border-white/10 text-white hover:bg-white/10"
-            >
-              <svg
-                className="w-4 h-4 mr-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              Jobs
-            </Button>
-          </Link>
-          <Link href="/dashboard/seeker/saved-jobs">
-            <Button
-              variant="flat"
-              className="border border-white/10 text-white hover:bg-white/10"
-            >
-              <svg
-                className="w-4 h-4 mr-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
-                />
-              </svg>
-              Saved Jobs
-            </Button>
-          </Link>
-          <Link href="/dashboard/seeker/applications">
-            <Button
-              variant="flat"
-              className="border border-white/10 text-white hover:bg-white/10"
-            >
-              <svg
-                className="w-4 h-4 mr-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Applications
-            </Button>
-          </Link>
-          <Link href="/dashboard/seeker/profile">
-            <Button
-              variant="flat"
-              className="border border-white/10 text-white hover:bg-white/10"
-            >
-              <svg
-                className="w-4 h-4 mr-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-              Profile
-            </Button>
-          </Link>
-          <Link href="/dashboard/seeker/billing">
-            <Button
-              variant="flat"
-              className="border border-white/10 text-white hover:bg-white/10"
-            >
-              <svg
-                className="w-4 h-4 mr-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                />
-              </svg>
-              Billing
-            </Button>
-          </Link>
-          <Link href="/dashboard/seeker/settings">
-            <Button
-              variant="flat"
-              className="bg-blue-500/20 text-blue-400 border border-blue-500/30"
-            >
-              <svg
-                className="w-4 h-4 mr-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              Settings
-            </Button>
-          </Link>
+                <button
+                  className={`w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 ${
+                    isActive
+                      ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                      : "border border-white/10 text-white hover:bg-white/10"
+                  }`}
+                >
+                  <svg
+                    className="w-4 h-4 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d={link.icon}
+                    />
+                  </svg>
+                  <span className="whitespace-nowrap">{link.label}</span>
+                </button>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
