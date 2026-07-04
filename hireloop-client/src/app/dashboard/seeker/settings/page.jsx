@@ -42,7 +42,7 @@ export default async function JobSeekerSettingsPage() {
       {/* Navigation Tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
-          <Link href="/dashboard/job-seeker">
+          <Link href="/dashboard/seeker">
             <Button
               variant="flat"
               className="border border-white/10 text-white hover:bg-white/10"
@@ -63,7 +63,7 @@ export default async function JobSeekerSettingsPage() {
               Dashboard
             </Button>
           </Link>
-          <Link href="/dashboard/job-seeker/jobs">
+          <Link href="/dashboard/seeker/jobs">
             <Button
               variant="flat"
               className="border border-white/10 text-white hover:bg-white/10"
@@ -84,7 +84,7 @@ export default async function JobSeekerSettingsPage() {
               Jobs
             </Button>
           </Link>
-          <Link href="/dashboard/job-seeker/saved-jobs">
+          <Link href="/dashboard/seeker/saved-jobs">
             <Button
               variant="flat"
               className="border border-white/10 text-white hover:bg-white/10"
@@ -105,7 +105,7 @@ export default async function JobSeekerSettingsPage() {
               Saved Jobs
             </Button>
           </Link>
-          <Link href="/dashboard/job-seeker/applications">
+          <Link href="/dashboard/seeker/applications">
             <Button
               variant="flat"
               className="border border-white/10 text-white hover:bg-white/10"
@@ -126,7 +126,7 @@ export default async function JobSeekerSettingsPage() {
               Applications
             </Button>
           </Link>
-          <Link href="/dashboard/job-seeker/profile">
+          <Link href="/dashboard/seeker/profile">
             <Button
               variant="flat"
               className="border border-white/10 text-white hover:bg-white/10"
@@ -147,7 +147,7 @@ export default async function JobSeekerSettingsPage() {
               Profile
             </Button>
           </Link>
-          <Link href="/dashboard/job-seeker/billing">
+          <Link href="/dashboard/seeker/billing">
             <Button
               variant="flat"
               className="border border-white/10 text-white hover:bg-white/10"
@@ -168,7 +168,7 @@ export default async function JobSeekerSettingsPage() {
               Billing
             </Button>
           </Link>
-          <Link href="/dashboard/job-seeker/settings">
+          <Link href="/dashboard/seeker/settings">
             <Button
               variant="flat"
               className="bg-blue-500/20 text-blue-400 border border-blue-500/30"
