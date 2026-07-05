@@ -2,15 +2,12 @@
 import React from "react";
 import { useSession } from "@/lib/auth-client";
 import {
-  Briefcase,
-  Persons,
-  Thunderbolt,
-  CircleCheck,
   House,
-  Magnifier,
-  Bookmark,
-  Clock,
-  CreditCard,
+  Briefcase,
+  Pencil,
+  Factory,
+  Envelope,
+  Person,
   Gear,
 } from "@gravity-ui/icons";
 import Link from "next/link";
@@ -41,21 +38,21 @@ const RecruiterDashboardHomePage = () => {
     {
       title: "Total Applicants",
       value: "1,284",
-      icon: Persons,
+      icon: Person,
       color: "from-purple-500/20 to-purple-600/20",
       textColor: "text-purple-400",
     },
     {
       title: "Active Jobs",
       value: "18",
-      icon: Thunderbolt,
+      icon: Briefcase,
       color: "from-green-500/20 to-green-600/20",
       textColor: "text-green-400",
     },
     {
-      title: "Jobs Closed",
-      value: "32",
-      icon: CircleCheck,
+      title: "Messages",
+      value: "24",
+      icon: Envelope,
       color: "from-orange-500/20 to-orange-600/20",
       textColor: "text-orange-400",
     },
@@ -64,67 +61,62 @@ const RecruiterDashboardHomePage = () => {
   const user = session?.user;
 
   const navLinks = [
-    { href: "/dashboard/recruiter", label: "Dashboard", icon: House },
+    { href: "/dashboard/recruiter", label: "Home", icon: House },
     { href: "/dashboard/recruiter/jobs", label: "Jobs", icon: Briefcase },
     {
-      href: "/dashboard/recruiter/applicants",
-      label: "Applicants",
-      icon: Persons,
+      href: "/dashboard/recruiter/post-job",
+      label: "Post A Job",
+      icon: Pencil,
     },
-    { href: "/dashboard/recruiter/saved", label: "Saved", icon: Bookmark },
     {
-      href: "/dashboard/recruiter/billing",
-      label: "Billing",
-      icon: CreditCard,
+      href: "/dashboard/recruiter/company",
+      label: "Company Profile",
+      icon: Factory,
     },
+    {
+      href: "/dashboard/recruiter/messages",
+      label: "Messages",
+      icon: Envelope,
+    },
+    { href: "/dashboard/recruiter/profile", label: "Profile", icon: Person },
     { href: "/dashboard/recruiter/settings", label: "Settings", icon: Gear },
   ];
 
-  // Recent applications data
-  const recentApplications = [
+  // Recent messages data
+  const recentMessages = [
     {
       id: 1,
       name: "John Doe",
       position: "Senior Software Engineer",
-      company: "Google",
-      status: "New",
+      message: "I'm very interested in this position...",
       time: "2 min ago",
+      avatar: "JD",
     },
     {
       id: 2,
       name: "Sarah Smith",
       position: "Product Manager",
-      company: "Amazon",
-      status: "Review",
+      message: "When can we schedule an interview?",
       time: "15 min ago",
+      avatar: "SS",
     },
     {
       id: 3,
       name: "Mike Johnson",
       position: "UX Designer",
-      company: "Spotify",
-      status: "Shortlisted",
+      message: "Thank you for considering my application...",
       time: "1 hour ago",
+      avatar: "MJ",
     },
     {
       id: 4,
       name: "Emily Chen",
       position: "Frontend Developer",
-      company: "Netflix",
-      status: "Rejected",
+      message: "I'd love to learn more about the team!",
       time: "3 hours ago",
+      avatar: "EC",
     },
   ];
-
-  const getStatusColor = (status) => {
-    const colors = {
-      New: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-      Review: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-      Shortlisted: "bg-green-500/20 text-green-400 border-green-500/30",
-      Rejected: "bg-red-500/20 text-red-400 border-red-500/30",
-    };
-    return colors[status] || "bg-gray-500/20 text-gray-400 border-gray-500/30";
-  };
 
   return (
     <div className="min-h-screen bg-black">
@@ -132,23 +124,23 @@ const RecruiterDashboardHomePage = () => {
       <div className="bg-gray-900/50 border-b border-white/10 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+            <h1 className="text-2xl font-bold text-white">Home</h1>
             <p className="text-gray-400 text-sm">
               Welcome back, {user?.name || "Recruiter"}! 👋
             </p>
           </div>
           <div className="flex items-center gap-3">
             <Chip className="bg-blue-500/20 text-blue-400 border border-blue-500/30">
-              <Clock className="w-3 h-3 mr-1" />
-              Last login: Today 10:30 AM
+              <Briefcase className="w-3 h-3 mr-1" />
+              48 Total Jobs
             </Chip>
-            <Link href="/dashboard/recruiter/jobs/create">
+            <Link href="/dashboard/recruiter/post-job">
               <Button
                 color="primary"
                 size="sm"
                 className="bg-gradient-to-r from-blue-600 to-blue-700 text-white"
               >
-                <Briefcase className="w-4 h-4 mr-1" />
+                <Pencil className="w-4 h-4 mr-1" />
                 Post New Job
               </Button>
             </Link>
@@ -215,42 +207,43 @@ const RecruiterDashboardHomePage = () => {
           })}
         </div>
 
-        {/* Recent Applications & Quick Actions */}
+        {/* Recent Messages & Quick Actions */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Recent Applications */}
+          {/* Recent Messages */}
           <Card className="bg-gray-900/50 border border-white/10 backdrop-blur-sm shadow-xl">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
-                  Recent Applications
+                  Recent Messages
                 </h3>
-                <Link href="/dashboard/recruiter/applicants">
+                <Link href="/dashboard/recruiter/messages">
                   <Button variant="light" size="sm" className="text-blue-400">
                     View All
                   </Button>
                 </Link>
               </div>
               <div className="space-y-3">
-                {recentApplications.map((app) => (
+                {recentMessages.map((msg) => (
                   <div
-                    key={app.id}
-                    className="flex items-center justify-between p-3 bg-gray-800/30 rounded-xl border border-white/5 hover:border-white/10 transition-colors"
+                    key={msg.id}
+                    className="flex items-start gap-3 p-3 bg-gray-800/30 rounded-xl border border-white/5 hover:border-white/10 transition-colors"
                   >
-                    <div>
-                      <p className="text-sm font-semibold text-white">
-                        {app.name}
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        {app.position} • {app.company}
-                      </p>
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center text-white font-semibold text-sm border border-white/10">
+                      {msg.avatar}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`text-xs px-2 py-1 rounded-full border ${getStatusColor(app.status)}`}
-                      >
-                        {app.status}
-                      </span>
-                      <span className="text-xs text-gray-500">{app.time}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-semibold text-white">
+                          {msg.name}
+                        </p>
+                        <span className="text-xs text-gray-500">
+                          {msg.time}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-400">{msg.position}</p>
+                      <p className="text-sm text-gray-300 truncate mt-0.5">
+                        {msg.message}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -265,28 +258,28 @@ const RecruiterDashboardHomePage = () => {
                 Quick Actions
               </h3>
               <div className="grid grid-cols-2 gap-4">
-                <Link href="/dashboard/recruiter/jobs/create">
+                <Link href="/dashboard/recruiter/post-job">
                   <Button className="w-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20">
-                    <Briefcase className="w-4 h-4 mr-1" />
+                    <Pencil className="w-4 h-4 mr-1" />
                     Post Job
                   </Button>
                 </Link>
-                <Link href="/dashboard/recruiter/applicants">
+                <Link href="/dashboard/recruiter/jobs">
                   <Button className="w-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20">
-                    <Persons className="w-4 h-4 mr-1" />
-                    View Applicants
+                    <Briefcase className="w-4 h-4 mr-1" />
+                    Manage Jobs
                   </Button>
                 </Link>
-                <Link href="/dashboard/recruiter/saved">
+                <Link href="/dashboard/recruiter/messages">
                   <Button className="w-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20">
-                    <Bookmark className="w-4 h-4 mr-1" />
-                    Saved Candidates
+                    <Envelope className="w-4 h-4 mr-1" />
+                    Messages
                   </Button>
                 </Link>
-                <Link href="/dashboard/recruiter/settings">
+                <Link href="/dashboard/recruiter/company">
                   <Button className="w-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30 border border-white/20">
-                    <Gear className="w-4 h-4 mr-1" />
-                    Settings
+                    <Factory className="w-4 h-4 mr-1" />
+                    Company Profile
                   </Button>
                 </Link>
               </div>
