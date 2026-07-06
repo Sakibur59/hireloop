@@ -1,11 +1,21 @@
-
 import { getUserSession, requireRole } from "@/lib/core/session";
-import { Card, Chip, Button, Avatar } from "@heroui/react";
+import { Card, Chip, Button } from "@heroui/react";
 import Link from "next/link";
-export default async function RecruiterProfilePage() {
- 
-  const user = await requireRole("recruiter");
+import {
+  House,
+  Briefcase,
+  Pencil,
+  Factory,
+  Envelope,
+  Gear,
+  LocationArrow,
+  Clock,
+  Smartphone,
+  Persons
+} from "@gravity-ui/icons";
 
+export default async function RecruiterProfilePage() {
+  const user = await requireRole("recruiter");
   const session = await getUserSession();
 
   const recruiterData = {
@@ -18,7 +28,6 @@ export default async function RecruiterProfilePage() {
           year: "numeric",
         })
       : "January 2024",
-    // These would come from a recruiter profile collection in DB
     title: "Senior Recruiter",
     company: "TechCorp Inc.",
     phone: "+1 (555) 123-4567",
@@ -32,6 +41,28 @@ export default async function RecruiterProfilePage() {
       avgResponseTime: "2.5 hours",
     },
   };
+
+  const navLinks = [
+    { href: "/dashboard/recruiter", label: "Home", icon: House },
+    { href: "/dashboard/recruiter/jobs", label: "Jobs", icon: Briefcase },
+    {
+      href: "/dashboard/recruiter/post-job",
+      label: "Post A Job",
+      icon: Pencil,
+    },
+    {
+      href: "/dashboard/recruiter/company",
+      label: "Company Profile",
+      icon: Factory,
+    },
+    {
+      href: "/dashboard/recruiter/messages",
+      label: "Messages",
+      icon: Envelope,
+    },
+    { href: "/dashboard/recruiter/profile", label: "Profile", icon: Persons },
+    { href: "/dashboard/recruiter/settings", label: "Settings", icon: Gear },
+  ];
 
   return (
     <div className="min-h-screen bg-black">
@@ -50,19 +81,7 @@ export default async function RecruiterProfilePage() {
                 variant="flat"
                 className="border border-white/10 text-white hover:bg-white/10"
               >
-                <svg
-                  className="w-4 h-4 mr-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                  />
-                </svg>
+                <Pencil className="w-4 h-4 mr-1" />
                 Edit Profile
               </Button>
             </Link>
@@ -72,29 +91,39 @@ export default async function RecruiterProfilePage() {
                 size="sm"
                 className="bg-gradient-to-r from-blue-600 to-blue-700 text-white"
               >
-                <svg
-                  className="w-4 h-4 mr-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
+                <Gear className="w-4 h-4 mr-1" />
                 Settings
               </Button>
             </Link>
           </div>
+        </div>
+      </div>
+
+      {/* Navigation Tabs - Equal width */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="flex flex-wrap gap-1 border-b border-white/10 pb-4">
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            const isActive = link.href === "/dashboard/recruiter/profile";
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="flex-1 min-w-[100px]"
+              >
+                <button
+                  className={`w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 ${
+                    isActive
+                      ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                      : "border border-white/10 text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <span className="whitespace-nowrap">{link.label}</span>
+                </button>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
@@ -115,76 +144,25 @@ export default async function RecruiterProfilePage() {
                     {recruiterData.title}
                   </Chip>
                 </div>
-                <p className="text-gray-400 mt-1">{recruiterData.company}</p>
+                <p className="text-gray-400 mt-1 flex items-center gap-1">
+                  <House className="w-4 h-4" />
+                  {recruiterData.company}
+                </p>
                 <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-gray-400">
                   <span className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
+                    <Envelope className="w-4 h-4" />
                     {recruiterData.email}
                   </span>
                   <span className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
+                    <Smartphone className="w-4 h-4" />
                     {recruiterData.phone}
                   </span>
                   <span className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
+                    <LocationArrow className="w-4 h-4" />
                     {recruiterData.location}
                   </span>
                   <span className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
+                    <Clock className="w-4 h-4" />
                     Joined {recruiterData.joined}
                   </span>
                 </div>
@@ -203,8 +181,8 @@ export default async function RecruiterProfilePage() {
             </div>
 
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                Departments
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                <Persons className="w-4 h-4" /> Departments
               </h3>
               <div className="flex flex-wrap gap-2">
                 {recruiterData.departments.map((dept, index) => (
