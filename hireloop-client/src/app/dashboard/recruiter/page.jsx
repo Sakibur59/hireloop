@@ -64,7 +64,7 @@ const RecruiterDashboardHomePage = () => {
     { href: "/dashboard/recruiter", label: "Home", icon: House },
     { href: "/dashboard/recruiter/jobs", label: "Jobs", icon: Briefcase },
     {
-      href: "/dashboard/recruiter/post-job",
+      href: "/dashboard/recruiter/jobs/new",
       label: "Post A Job",
       icon: Pencil,
     },
@@ -134,7 +134,7 @@ const RecruiterDashboardHomePage = () => {
               <Briefcase className="w-3 h-3 mr-1" />
               48 Total Jobs
             </Chip>
-            <Link href="/dashboard/recruiter/post-job">
+            <Link href="/dashboard/recruiter/jobs/new">
               <Button
                 color="primary"
                 size="sm"

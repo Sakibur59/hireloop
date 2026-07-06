@@ -23,7 +23,7 @@ const CompanyPage = async () => {
     { href: "/dashboard/recruiter", label: "Home", icon: House },
     { href: "/dashboard/recruiter/jobs", label: "Jobs", icon: Briefcase },
     {
-      href: "/dashboard/recruiter/post-job",
+      href: "/dashboard/recruiter/jobs/new",
       label: "Post A Job",
       icon: Pencil,
     },
@@ -58,7 +58,7 @@ const CompanyPage = async () => {
                 {company.status || "Pending"}
               </Chip>
             )}
-            <Link href="/dashboard/recruiter/post-job">
+            <Link href="/dashboard/recruiter/jobs/new">
               <Button
                 color="primary"
                 size="sm"
