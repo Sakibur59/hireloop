@@ -46,7 +46,7 @@ export default async function RecruiterProfilePage() {
     { href: "/dashboard/recruiter", label: "Home", icon: House },
     { href: "/dashboard/recruiter/jobs", label: "Jobs", icon: Briefcase },
     {
-      href: "/dashboard/recruiter/post-job",
+      href: "/dashboard/recruiter/jobs/new",
       label: "Post A Job",
       icon: Pencil,
     },

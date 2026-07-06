@@ -1,9 +1,34 @@
 import { getUserSession, requireRole } from "@/lib/core/session";
 import { Card, Chip, Button, Switch } from "@heroui/react";
+import Link from "next/link";
+import {
+  House,
+  Briefcase,
+  Pencil,
+  Factory,
+  Envelope,
+  Person,
+  Gear,
+  LocationArrow,
+  Smartphone,
+  CircleCheck,
+  Shield,
+  TrashBin,
+} from "@gravity-ui/icons";
 
 export default async function RecruiterSettingsPage() {
   const user = await requireRole("recruiter");
   const session = await getUserSession();
+
+  const navLinks = [
+    { href: "/dashboard/recruiter", label: "Home", icon: House },
+    { href: "/dashboard/recruiter/jobs", label: "Jobs", icon: Briefcase },
+    { href: "/dashboard/recruiter/post-job", label: "Post A Job", icon: Pencil },
+    { href: "/dashboard/recruiter/company", label: "Company Profile", icon: Factory },
+    { href: "/dashboard/recruiter/messages", label: "Messages", icon: Envelope },
+    { href: "/dashboard/recruiter/profile", label: "Profile", icon: Person },
+    { href: "/dashboard/recruiter/settings", label: "Settings", icon: Gear },
+  ];
 
   return (
     <div className="min-h-screen bg-black">
@@ -21,21 +46,33 @@ export default async function RecruiterSettingsPage() {
             size="sm"
             className="bg-gradient-to-r from-blue-600 to-blue-700 text-white"
           >
-            <svg
-              className="w-4 h-4 mr-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
+            <CircleCheck className="w-4 h-4 mr-1" />
             Save Changes
           </Button>
+        </div>
+      </div>
+
+      {/* Navigation Tabs - Equal width */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="flex flex-wrap gap-1 border-b border-white/10 pb-4">
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            const isActive = link.href === "/dashboard/recruiter/settings";
+            return (
+              <Link key={link.href} href={link.href} className="flex-1 min-w-[100px]">
+                <button
+                  className={`w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 ${
+                    isActive
+                      ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                      : "border border-white/10 text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <span className="whitespace-nowrap">{link.label}</span>
+                </button>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
@@ -44,7 +81,8 @@ export default async function RecruiterSettingsPage() {
         {/* Profile Settings */}
         <Card className="bg-gray-900/50 border border-white/10 backdrop-blur-sm shadow-xl mb-6">
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">
+            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <Person className="w-5 h-5 text-blue-400" />
               Profile Settings
             </h2>
             <div className="space-y-4">
@@ -73,6 +111,7 @@ export default async function RecruiterSettingsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-1">
+                    <Smartphone className="w-4 h-4 inline mr-1" />
                     Phone Number
                   </label>
                   <input
@@ -83,6 +122,7 @@ export default async function RecruiterSettingsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-1">
+                    <LocationArrow className="w-4 h-4 inline mr-1" />
                     Location
                   </label>
                   <input
@@ -109,7 +149,8 @@ export default async function RecruiterSettingsPage() {
         {/* Notification Settings */}
         <Card className="bg-gray-900/50 border border-white/10 backdrop-blur-sm shadow-xl mb-6">
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">
+            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <Envelope className="w-5 h-5 text-blue-400" />
               Notification Preferences
             </h2>
             <div className="space-y-4">
@@ -156,7 +197,10 @@ export default async function RecruiterSettingsPage() {
         {/* Security Settings */}
         <Card className="bg-gray-900/50 border border-white/10 backdrop-blur-sm shadow-xl mb-6">
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">Security</h2>
+            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <Shield className="w-5 h-5 text-blue-400" />
+              Security
+            </h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-gray-800/30 rounded-xl border border-white/10">
                 <div>
@@ -195,7 +239,8 @@ export default async function RecruiterSettingsPage() {
         {/* Danger Zone */}
         <Card className="bg-red-900/20 border border-red-500/30 backdrop-blur-sm shadow-xl">
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-red-400 mb-4">
+            <h2 className="text-lg font-semibold text-red-400 mb-4 flex items-center gap-2">
+              <TrashBin className="w-5 h-5" />
               Danger Zone
             </h2>
             <div className="space-y-4">
