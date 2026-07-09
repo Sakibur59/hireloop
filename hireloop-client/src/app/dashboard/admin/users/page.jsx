@@ -16,8 +16,7 @@ import {
   Pencil,
 } from "@gravity-ui/icons";
 
-// API ফাংশন ইমপোর্ট
-import { getUsersList, updateUserRole, deleteUser } from '@/lib/api/users';
+import { getUsersList, updateUserRole, deleteUser } from "@/lib/api/users";
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState([]);
@@ -26,13 +25,11 @@ export default function AdminUsersPage() {
   const [roleFilter, setRoleFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
 
-  // মডেল স্টেট
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [newRole, setNewRole] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // ডেটা লোড করা
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -94,14 +91,14 @@ export default function AdminUsersPage() {
     setIsModalOpen(true);
   };
 
-  // Save role change - API কল
   const saveRoleChange = async () => {
     if (selectedUser && newRole) {
       try {
         setIsUpdating(true);
-        await updateUserRole(selectedUser.id || selectedUser._id, { role: newRole });
-        
-        // লোকাল স্টেট আপডেট
+        await updateUserRole(selectedUser.id || selectedUser._id, {
+          role: newRole,
+        });
+
         const updatedUsers = users.map((user) =>
           user.id === selectedUser.id || user._id === selectedUser._id
             ? { ...user, role: newRole }
@@ -120,12 +117,17 @@ export default function AdminUsersPage() {
     }
   };
 
-  // Delete user handler - API কল
   const handleDeleteUser = async (userId) => {
-    if (confirm("Are you sure you want to delete this user? This action cannot be undone.")) {
+    if (
+      confirm(
+        "Are you sure you want to delete this user? This action cannot be undone.",
+      )
+    ) {
       try {
         await deleteUser(userId);
-        setUsers(users.filter((user) => user.id !== userId && user._id !== userId));
+        setUsers(
+          users.filter((user) => user.id !== userId && user._id !== userId),
+        );
       } catch (error) {
         console.error("Error deleting user:", error);
         alert("Failed to delete user. Please try again.");
@@ -133,17 +135,19 @@ export default function AdminUsersPage() {
     }
   };
 
-  // ফিল্টার করা ইউজার
   const filteredUsers = users.filter((user) => {
-    const matchesSearch = user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch =
+      user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === "all" || user.role === roleFilter;
-    const matchesStatus = statusFilter === "all" || 
-                         (statusFilter === "verified" ? user.emailVerified : user.status === statusFilter);
+    const matchesStatus =
+      statusFilter === "all" ||
+      (statusFilter === "verified"
+        ? user.emailVerified
+        : user.status === statusFilter);
     return matchesSearch && matchesRole && matchesStatus;
   });
 
-  // লোডিং স্টেট
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -516,11 +520,13 @@ export default function AdminUsersPage() {
               <Persons className="w-10 h-10 text-gray-600" />
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">
-              {searchTerm || roleFilter !== "all" || statusFilter !== "all" ? "No matching users found" : "No users found"}
+              {searchTerm || roleFilter !== "all" || statusFilter !== "all"
+                ? "No matching users found"
+                : "No users found"}
             </h3>
             <p className="text-gray-400 mb-6">
-              {searchTerm || roleFilter !== "all" || statusFilter !== "all" 
-                ? "Try adjusting your search or filters" 
+              {searchTerm || roleFilter !== "all" || statusFilter !== "all"
+                ? "Try adjusting your search or filters"
                 : "Start by adding your first user"}
             </p>
             {!searchTerm && roleFilter === "all" && statusFilter === "all" && (
@@ -567,8 +573,18 @@ export default function AdminUsersPage() {
                   </option>
                 </select>
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </div>
               </div>
